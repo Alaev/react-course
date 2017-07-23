@@ -1,32 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
 import './index.css';
-
-const Header = ({ title }) => (
-  <h1>{title}</h1>
-);
+import Header from './components/Header';
+import GenericInput from './components/GenericInput';
 
 const Recipe = ({ name }) => (
   <li>{ name }</li>
 );
 
-class GenericInput extends React.Component {
-  handleClick = () => {
-    this.props.onAdd(this.elemPointer.value);
-    this.elemPointer.value = '';
-  };
+const Recipes = ({ recipes }) => (
+  <div>
+    <ul>
+      {
+        recipes.map(name => <Recipe key={name} name={name}/>)
+      }
+    </ul>
+  </div>
+);
 
-  render() {
-    return (
-      <div>
-        <input ref={(elem) => this.elemPointer = elem}/>
-        <button onClick={this.handleClick}>Add</button>
-      </div>
-    );
-  }
-}
-
-class Recipes extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
 
@@ -44,26 +36,17 @@ class Recipes extends React.Component {
   render() {
     return (
       <div>
-        <ul>
-          {
-            this.state.recipes.map(name => <Recipe key={name} name={name}/>)
-          }
-        </ul>
+        <div>
+          <Header title="Recipes:"/>
 
-        <GenericInput age={ 3 } onAdd={ this.addRecipe } />
+          <Recipes recipes={ this.state.recipes } />
+
+          <GenericInput onAdd={ this.addRecipe } />
+        </div>
       </div>
     );
   }
 }
-
-const App = () => (
-  <div>
-    <div>
-      <Header title="Recipes:"/>
-      <Recipes/>
-    </div>
-  </div>
-);
 
 render(
   <App />,
