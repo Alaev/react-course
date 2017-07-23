@@ -10,6 +10,22 @@ const Recipe = ({ name }) => (
   <li>{ name }</li>
 );
 
+class GenericInput extends React.Component {
+  handleClick = () => {
+    this.props.onAdd(this.elemPointer.value);
+    this.elemPointer.value = '';
+  };
+
+  render() {
+    return (
+      <div>
+        <input ref={(elem) => this.elemPointer = elem}/>
+        <button onClick={this.handleClick}>Add</button>
+      </div>
+    );
+  }
+}
+
 class Recipes extends React.Component {
   constructor() {
     super();
@@ -17,24 +33,12 @@ class Recipes extends React.Component {
     this.state = {
       recipes: ['Pancake', 'Pizza', 'Cow food'],
     };
-
-    // setTimeout(() => {
-    //
-    //   this.setState({
-    //     recipes: this.state.recipes.concat('Hello')
-    //   });
-    //
-    // }, 2000);
   }
 
-  handleClick = () => {
-    console.log('Woosh ' + this.elemPointer.value);
-
+  addRecipe = (title) => {
     this.setState({
-      recipes: this.state.recipes.concat(this.elemPointer.value)
+      recipes: this.state.recipes.concat(title)
     });
-
-    this.elemPointer.value = '';
   };
 
   render() {
@@ -46,26 +50,20 @@ class Recipes extends React.Component {
           }
         </ul>
 
-        <input ref={ (elem) => this.elemPointer = elem } />
-
-        <button onClick={ this.handleClick }>Add</button>
+        <GenericInput age={ 3 } onAdd={ this.addRecipe } />
       </div>
     );
   }
 }
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <div>
-          <Header title="Recipes:"/>
-          <Recipes/>
-        </div>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <div>
+      <Header title="Recipes:"/>
+      <Recipes/>
+    </div>
+  </div>
+);
 
 render(
   <App />,
