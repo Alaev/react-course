@@ -2,16 +2,18 @@ import React from 'react';
 import Recipes from './Recipes';
 import AddRecipe from './AddRecipe';
 import { getID } from '../lib/utils';
+import store from '../store';
 
 class RecipesView extends React.Component {
   constructor() {
     super();
 
+    store.subscribe(() => {
+      this.forceUpdate();
+    });
+
     this.state = {
-      recipes: [
-        { id: getID(), title: 'Waffles', favorite: true },
-        { id: getID(), title: 'Omelette', favorite: false }
-      ]
+      recipes: []
     };
   }
 
@@ -36,7 +38,7 @@ class RecipesView extends React.Component {
     return (
       <div className="main">
         <div className="pane">
-          <Recipes recipes={ this.state.recipes } toggle={ this.toggleRecipes }/>
+          <Recipes recipes={ store.getState().recipes } toggle={ this.toggleRecipes }/>
         </div>
 
         <div className="pane">

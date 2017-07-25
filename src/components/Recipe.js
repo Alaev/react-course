@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Counter from './Counter';
 
 const Recipe = ({ recipe, toggle }) => (
   <li className={ classNames({ 'favorite': recipe.favorite }) }
       onClick={ () => toggle(recipe) }>
-    { recipe.title }
+    { recipe.title } (<Counter/>)
   </li>
 );
 
