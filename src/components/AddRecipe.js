@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { addRecipe } from '../actions/recipes';
 
 class AddRecipe extends React.Component {
   onSubmit(e) {
@@ -25,13 +26,13 @@ AddRecipe.propTypes = {
   addRecipe: PropTypes.func.isRequired
 };
 
-// Old code ^^^^^^^^^^^
-
 const mapStateToProps = (state) => ({
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addRecipe: (title) => dispatch({ type: 'ADD_RECIPE', title })
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   addRecipe: (title) => dispatch(buildAddRecipe(title)),
+//   delRecipe: (id) => dispatch(buildDeleteRecipe(id)),
+//   changeName: (id, name) => dispatch(buildChangeName(id, name))
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRecipe);
+export default connect(mapStateToProps, { addRecipe })(AddRecipe);

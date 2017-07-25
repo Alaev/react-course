@@ -5,7 +5,7 @@ import Counter from './Counter';
 
 const Recipe = ({ recipe, toggle }) => (
   <li className={ classNames({ 'favorite': recipe.favorite }) }
-      onClick={ () => toggle(recipe) }>
+      onClick={ () => toggle(recipe.id) }>
     { recipe.title } (<Counter/>)
   </li>
 );
